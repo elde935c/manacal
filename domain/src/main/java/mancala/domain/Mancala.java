@@ -2,15 +2,20 @@ package mancala.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Mancala implements IMancala {
 
     private final Pit firstPit;
 
-    public Mancala(ArrayList<String> names) {
+    public Mancala(String name1, String name2) {
         int numPlayers = 2;
         int numBowlsPerPlayer = 7;
-        ArrayList<Integer>  startingStones = new ArrayList<Integer>();
+        ArrayList<Integer>  startingStones = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        names.add(name1);
+        names.add(name2);
+
         for (int i=0; i<numPlayers; i++) {
             for (int j = 0; j < numBowlsPerPlayer; j++) {
                 startingStones.add(4);
@@ -34,7 +39,7 @@ public class Mancala implements IMancala {
 
     @Override
     public boolean isPlayersTurn(String name) {
-        return false;
+        return Objects.equals(firstPit.getPlayer().getName(), name);
     }
 
     @Override
