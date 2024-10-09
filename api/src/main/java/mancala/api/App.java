@@ -1,5 +1,7 @@
 package mancala.api;
 
+import mancala.domain.MancalaFactory;
+import mancala.persistence.MancalaRepository;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -51,8 +53,8 @@ public class App {
 
     private static ResourceConfig createResources() {
         // Create the dependencies we want to inject
-        IMancalaFactory factory = null; // TODO: get implementation from domain
-        IMancalaRepository repository = null; // TODO: get implementation from persistence
+        IMancalaFactory factory = new MancalaFactory(); // TODO: get implementation from domain
+        IMancalaRepository repository = new MancalaRepository(); // TODO: get implementation from persistence
         // Create the MancalaController and inject the dependencies
         MancalaController mancalaController = new MancalaController(factory, repository);
         // Register our MancalaController

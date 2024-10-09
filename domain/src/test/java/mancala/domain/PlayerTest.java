@@ -14,6 +14,8 @@ class PlayerTest {
     int numBowls = numBowlsPerPlayer*numPlayers;
     static List<Integer> startingStones;
     static int pitStartingStones = 4;
+    static ArrayList<String> names;
+
 
     @BeforeEach
     public void init() {
@@ -21,6 +23,9 @@ class PlayerTest {
         for (int i=1; i<=numBowls; i++) {
             startingStones.add((i%numBowlsPerPlayer==0) ? 0 : pitStartingStones);
         }
+        names = new ArrayList<>();
+        names.add("Mario");
+        names.add("Luigi");
         player = new Player(numPlayers, names);
     }
 
@@ -100,5 +105,6 @@ class PlayerTest {
     @AfterEach
     public void teardown() {
         player = null;
+        names = null;
     }
 }

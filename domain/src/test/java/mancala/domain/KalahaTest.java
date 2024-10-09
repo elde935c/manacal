@@ -10,13 +10,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class KalahaTest {
-    static Player player;
     static Pit pit;
     static int numPlayers = 2;
     static int numBowlsPerPlayer = 3;
     static int numBowls = numPlayers*numBowlsPerPlayer;
     static List<Integer> startingStones;
     static int pitStartingStones = 4;
+    static ArrayList<String> names;
 
     @BeforeEach
     public void init() {
@@ -24,7 +24,9 @@ class KalahaTest {
         for (int i=1; i<=numBowls; i++) {
             startingStones.add((i%numBowlsPerPlayer==0) ? 0 : pitStartingStones);
         }
-        player = new Player(numPlayers, names);
+        names = new ArrayList<>();
+        names.add("Mario");
+        names.add("Luigi");
         pit = new Pit(numBowls, numBowlsPerPlayer, startingStones, names);
     }
 
@@ -83,28 +85,28 @@ class KalahaTest {
 
     @Test
     void stonesInOwnKalahaShouldGainOne() {
-        pit.passStones(numBowls+1, player);
+        pit.passStones(numBowls+1, pit.getPlayer());
         Kalaha kalaha = pit.getKalaha();
         assertEquals(1, kalaha.getStones());
     }
 
     @Test
     void stonesInPitAfterOwnKalahaShouldGetOneMoreAfterPassStones() {
-        pit.passStones(numBowls+1, player);
+        pit.passStones(numBowls+1, pit.getPlayer());
         Kalaha opponentsPit = pit.getKalaha().getNextBowl();
         assertEquals(5, opponentsPit.getStones());
     }
 
     @Test
     void stonesInKalahaOpponentShouldRemainZeroAfterPassStones() {
-        pit.passStones(numBowls*3, player);
+        pit.passStones(numBowls*3, pit.getPlayer());
         Kalaha opponentsKalaha = pit.getOppositeBowl().getKalaha();
         assertEquals(0, opponentsKalaha.getStones());
     }
 
     @AfterEach
     public void teardown() {
-        player = null;
         pit = null;
+        names = null;
     }
 }

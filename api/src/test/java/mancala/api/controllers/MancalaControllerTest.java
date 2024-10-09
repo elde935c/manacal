@@ -1,5 +1,8 @@
 package mancala.api.controllers;
 
+import mancala.domain.IMancala;
+import mancala.domain.MancalaFactory;
+import mancala.persistence.MancalaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -104,8 +107,8 @@ public class MancalaControllerTest {
     }
 
     private void createController() {
-        IMancalaFactory factory = null; // TODO: get implementation from domain
-        IMancalaRepository repository = null; // TODO: get implementation from persistence
+        IMancalaFactory factory = new MancalaFactory(); // TODO: get implementation from domain
+        IMancalaRepository repository = new MancalaRepository(); // TODO: get implementation from persistence
         controller = new MancalaController(factory, repository);
     }
 

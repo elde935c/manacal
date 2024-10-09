@@ -1,7 +1,6 @@
 package mancala.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Mancala implements IMancala {
@@ -17,7 +16,7 @@ public class Mancala implements IMancala {
         names.add(name2);
 
         for (int i=0; i<numPlayers; i++) {
-            for (int j = 0; j < numBowlsPerPlayer; j++) {
+            for (int j = 1; j < numBowlsPerPlayer; j++) {
                 startingStones.add(4);
             }
             startingStones.add(0);
@@ -44,12 +43,12 @@ public class Mancala implements IMancala {
 
     @Override
     public void playPit(int index) {
-        firstPit.playPit(index);
+        firstPit.playPit((index % 7) + 1);
     }
 
     @Override
     public int getStonesForPit(int index) {
-        return firstPit.getBowlAt(index).getStones();
+        return firstPit.getBowlAt(index+1).getStones();
     }
 
     @Override
@@ -63,6 +62,8 @@ public class Mancala implements IMancala {
             return Winner.PLAYER_1;
         else if (firstPit.getPlayer().getState() == Player.STATE.LOST)
             return Winner.PLAYER_2;
-        return Winner.DRAW;
+        else if (firstPit.getPlayer().getState() == Player.STATE.DRAW)
+            return Winner.DRAW;
+        return Winner.NO_ONE;
     }
 }

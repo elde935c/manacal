@@ -23,3 +23,29 @@ export async function startGame(player1: string, player2: string) {
         };
     }
 }
+
+
+export async function playGame(indexToPlay: int) {
+    const response = await fetch("mancala/api/play", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            indexToPlay: indexToPlay,
+        }),
+    });
+
+    console.log("mancala/api/play")
+
+    if (response.ok) {
+        const gameState = await response.json();
+        return gameState as GameState;
+    } else {
+        return {
+            statusCode: response.status,
+            statusText: response.statusText
+        };
+    }
+}
