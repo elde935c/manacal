@@ -1,37 +1,58 @@
 import { useMancalaGame } from "../contexts/MancalaGameContext";
 import { playGame } from "../services/api";
-import { isGameState, Pit} from "../types";
+import { isGameState, Pit } from "../types";
+
+// import PitButton from "../components/PitButton";
+import { ReactNode } from "react";
 
 export const Play = () => {
-    const { gameState, setGameState } = useMancalaGame();
+  const { gameState, setGameState } = useMancalaGame();
 
-//     const pits = Player.pits;
+  const playPit = async (index: number) => {
+    const result = await playGame(index);
 
-    const onSubmit = async () => {
-        const result = await playGame(0);
-
-        if (isGameState(result)) {
-            setGameState(result);
-        } else {
-            setAlert(`${result.statusCode} ${result.statusText}`);
-        }
+    if (isGameState(result)) {
+      setGameState(result);
     }
+  };
 
-    const buttonLabels = ['1', '2', '3']; // Array of labels
-
-    return <div>
-        Player 1: {gameState?.players[0].name}<br />
-        Player 2: {gameState?.players[1].name}
-        <div>
-              {buttonLabels.map((label, index) => (
-                <button type="button"
-                  key={index}
-                  label={label}
-                  onClick={() => onSubmit()}
-                >
-                {label}
-                </button>
-              ))}
-            </div>
+  return (
+    <div>
+      It is Player{" "}
+      {gameState?.players[0].hasTurn
+        ? gameState?.players[0].name
+        : gameState?.players[1].name}{"s "}
+      turn
+      <br />
+      <br />
+      {gameState?.players[1].pits
+        .slice(0)
+        .reverse()
+        .map((pit: Pit): ReactNode => {
+          return (
+            <button
+              type="button"
+              className={"btn btn-primary"}
+              onClick={() => playPit(pit.index + 7)}
+              key={pit.index + 7}
+            >
+              {pit.nrOfStones}
+            </button>
+          );
+        })}
+      <br />
+      {gameState?.players[0].pits.map((pit: Pit): ReactNode => {
+        return (
+          <button
+            type="button"
+            className={"btn btn-primary"}
+            onClick={() => playPit(pit.index)}
+            key={pit.index}
+          >
+            {pit.nrOfStones}
+          </button>
+        );
+      })}
     </div>
+  );
 };

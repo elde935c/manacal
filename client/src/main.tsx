@@ -4,6 +4,8 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router.tsx'
 import { MancalaGameProvider } from './contexts/MancalaGameContext.tsx'
+import 'bootstrap/dist/css/bootstrap.css'
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

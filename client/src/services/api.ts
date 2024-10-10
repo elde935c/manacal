@@ -25,7 +25,7 @@ export async function startGame(player1: string, player2: string) {
 }
 
 
-export async function playGame(indexToPlay: int) {
+export async function playGame(indexToPlay: number) {
     const response = await fetch("mancala/api/play", {
         method: "POST",
         headers: {
