@@ -38,7 +38,11 @@ public class Mancala implements IMancala {
 
     @Override
     public boolean isPlayersTurn(String name) {
-        return Objects.equals(firstPit.getPlayer().getName(), name);
+        if (Objects.equals(firstPit.getPlayer().getName(), name))
+            return firstPit.getPlayer().getTurn();
+        else if (Objects.equals(firstPit.getOppositeBowl().getPlayer().getName(), name))
+            return firstPit.getOppositeBowl().getPlayer().getTurn();
+        return false;
     }
 
     @Override

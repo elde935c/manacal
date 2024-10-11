@@ -45,6 +45,18 @@ class MancalaTest {
         assertFalse(mancala.isPlayersTurn("adfa"));
     }
 
+    @Test 
+    public void isPlayer1TurnShouldBeFalseAfterFirstPlayerMadeMove() {
+        mancala.playPit(0);
+        assertFalse(mancala.isPlayersTurn(name1));
+    }
+
+    @Test
+    public void isPlayer2TurnShouldBeTrueAfterFirstPlayerMadeMove() {
+        mancala.playPit(0);
+        assertTrue(mancala.isPlayersTurn(name2));
+    }
+
     @ParameterizedTest
     @ValueSource(ints = {6,13})
     public void numStonesKalahaAtStartIs0(int index) {
