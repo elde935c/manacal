@@ -1,9 +1,21 @@
 image: gradle
 
 stages:
-    - unit-test-domain
+    - test-domain
+    - test-api
+    - build
 
-sample-job:
-    stage: unit-test-domain
+test-domain-job:
+    stage: test-domain
     script:
-        - gradle test --tests domain:test
+        - ./gradlew :domain:test
+
+test-api-job:
+    stage: test-api
+    script:
+        - ./gradlew :api:test
+
+build-job:
+    stage: build
+    script:
+        - gradle build
