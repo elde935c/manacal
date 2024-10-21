@@ -1,9 +1,9 @@
-image: ubuntu
+image: gradle
 
 stages:
-    - sample-stage
+    - unit-test-domain
 
 sample-job:
-    stage: sample-stage
+    stage: unit-test-domain
     script:
-        - echo "Hello world"
+        - gradle test --tests domain:test
