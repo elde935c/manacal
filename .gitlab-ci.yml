@@ -1,0 +1,9 @@
+image: ubuntu
+
+stages:
+    - sample-stage
+
+sample-job:
+    stage: sample-stage
+    script:
+        - echo "Hello world"
